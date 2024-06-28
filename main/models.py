@@ -6,11 +6,17 @@ class Artista(models.Model):
     apellido = models.CharField(max_length=50)
     cantante = models.BooleanField(default=False)
     instrumento = models.CharField(max_length=50)
+    
+    def __str__(self):
+        return f'{self.nombre} {self.apellido}'
 
 class Grupo(models.Model):
     nombre = models.CharField(max_length=50)
     fecha_creacion = models.DateField()
     artistas = models.ManyToManyField(Artista, through="ArtistaGrupo", related_name="grupos")
+    
+    def __str__(self):
+        return f'{self.nombre}'
 
 class ArtistaGrupo(models.Model):
     artista = models.ForeignKey(Artista, on_delete=models.CASCADE)
